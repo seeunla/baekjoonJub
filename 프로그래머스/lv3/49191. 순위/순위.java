@@ -36,9 +36,10 @@ class Solution {
 //     }
     public int solution(int n, int[][] results) {
         int dist[][];
+        int cnt[];
         int answer =0;
         dist = new int[n][n];
-        
+        cnt = new int[n];
         for (int i=0; i<results.length; i++) {
             dist[results[i][0]-1][results[i][1]-1] = 1;
             // cnt[results[i][1]-1]++;
@@ -46,18 +47,19 @@ class Solution {
         }
         
         // 인접 행렬 초기화
-        // for (int[] i : dist) {
-        //     System.out.println(Arrays.toString(i));
-        // }
+        for (int[] i : dist) {
+            System.out.println(Arrays.toString(i));
+        }
         
         for (int k=0; k<n; k++) {
             for (int i =0; i<n; i++) {
                 for (int j=0; j<n; j++) {
-                    if(i==j) {
+                    if(dist[i][j] == 1) {
                         continue;
                     }
                     if(dist[i][k] ==1 && dist[k][j] ==1) {
                         dist[i][j] = 1;
+                        cnt[j]++;
                     }
                 }
             }
@@ -65,29 +67,24 @@ class Solution {
         
         
         // k를 거치는 모든 경로 중 1개라도 연결돼 있는 경로가 있다면 i와 j는 연결
-        //  System.out.println("after: ");
-        // for (int i=0; i< dist.length; i++) {
-        //     System.out.println(Arrays.toString(dist[i]));
-        // }
-        
-        int cnt = 0;
-        for(int i =0; i<n; i++) {
-            for (int j=0; j<n; j++) {
-                if (i==j) continue;
-                if (dist[i][j] == 1 || dist[j][i] == 1) {
-                    cnt++;
-                }
-            }
-            if(cnt == n-1) {
+         System.out.println("after: ");
+        for (int i=0; i< dist.length; i++) {
+            System.out.println(Arrays.toString(dist[i]));
+        }
+        int pos = 0;
+        for(int i =0; i<cnt.length; i++) {
+            if (cnt[i] == n-1) {
                 answer++;
+                pos = i;
             }
-            cnt=0;
         }
         // for (int i=0; i<results.length; i++) {
         //     if (results[i][0] == pos
         //        || results[i][1] == pos) answer++;
         // }
-    
+        
+        System.out.println("cnt: "+Arrays.toString(cnt));
         return answer;
     }
+ 
 }
