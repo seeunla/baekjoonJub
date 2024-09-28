@@ -61,13 +61,20 @@ class Solution {
 //     }
     
     public int solution(String str1, String str2) {
-
+        /*
+        1. 소문자 변환
+        2. 비교할 문자열만 추출 
+        3. 교집합에 속하는 문자열 각각 찾기
+        4. 두 개의 Map에서 교집합 구하기 (둘 중에 더 작은 값)
+        5. 합집합은 전체 - 교집합
+        */
+    
         str1 = str1.toLowerCase();
         str2 = str2.toLowerCase();
 
+        
         List<String> list1 = new ArrayList<>();
         List<String> list2 = new ArrayList<>();
-
 
         for (int i = 0; i < str1.length() - 1; i++) {
             char ch1 = str1.charAt(i);
@@ -111,11 +118,11 @@ class Solution {
             intersection += Math.min(map2.get(entry.getKey()), entry.getValue());
         }
 
-        int union = list1.size() + list2.size();
+        int union = list1.size() + list2.size() - intersection;
 
         if (intersection == union) return 65536;
         
-        double answer = (double) intersection / (union - intersection) * 65536;
+        double answer = (double) intersection / union * 65536;
         return (int) Math.floor(answer);
     }
     
