@@ -106,16 +106,16 @@ class Solution {
             }
         }
 
-        int child = 0;
+        int intersection = 0;
         for (Map.Entry<String, Integer> entry : map1.entrySet()) {
-            child += Math.min(map2.get(entry.getKey()), entry.getValue());
+            intersection += Math.min(map2.get(entry.getKey()), entry.getValue());
         }
 
-        int parent = list1.size() + list2.size();
+        int union = list1.size() + list2.size();
 
-
-        double answer = (double) child / (parent - child) * 65536;
-        if (child == parent) return 65536;
+        if (intersection == union) return 65536;
+        
+        double answer = (double) intersection / (union - intersection) * 65536;
         return (int) Math.floor(answer);
     }
     
