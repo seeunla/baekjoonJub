@@ -5,27 +5,22 @@ import java.util.List;
 
 class Solution {
     public String[] solution(String[] record) {
-        String[] uid = new String[record.length];
-        String[] nickName = new String[record.length];
 
-        HashMap<String, Integer> uidMap = new HashMap<>();
         HashMap<String, String> nickNameMap = new HashMap<>();
 
         List<String[]> list = new ArrayList<>();
         for (int i = 0; i < record.length; i++) {
             String[] tmp = record[i].split(" ");
 
-            uid[i] = tmp[1];
-            uidMap.put(tmp[1], uidMap.getOrDefault(tmp[1], i));
+            String uid = tmp[1];
 
             if (tmp.length == 2) {
-                nickName[i] = tmp[1];
-                list.add(new String[]{tmp[0], uid[i]});
+                list.add(new String[]{tmp[0], uid});
             }
             if (tmp.length == 3) {
-                nickName[i] = tmp[2];
-                nickNameMap.put(uid[i], nickName[i]);
-                list.add(new String[]{tmp[0], uid[i], nickName[i]});
+                String nickName = tmp[2];
+                nickNameMap.put(uid, nickName);
+                list.add(new String[]{tmp[0], uid, nickName});
             }
         }
 
